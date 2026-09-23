@@ -1,68 +1,70 @@
-### 4. `groundpulse-web-ops`
+### 4. `groundpulse-web-ops` README.md
 
 ```markdown
-# groundpulse-web-ops
+# GroundPulse Operations & Marketplace Portal (`groundpulse-web-ops`)
 
-Back-office operations portal for Platform Administrators and Service Providers[cite: 1].
+Internal operations and contractor portal containing the **Admin Oversight Console** and the **Service Provider Dashboard** for GroundPulse.
 
 ---
 
-## 🎯 Purpose of This Repo
-This Next.js application serves internal platform administrators managing network-wide oversight and vetted third-party service providers (plumbers, electricians, contractors) completing assigned repairs[cite: 1].
+## 📌 Work of This Repo
+This repository houses operational management and repair fulfillment workflows:
+- **Admin Console (`/admin/dashboard`, `/admin/reassign`):** Platform-wide live metrics (active properties, pending inspections, open issues, in-progress repairs), cross-entity drill-down tables, manual reassignments, and inspector/service-provider verification queues.
+- **Service Provider Portal (`/provider/jobs`):** Locality-based assigned jobs, repair instructions, accept/decline actions, and the "Mark Complete" flow requiring notes and after-photos.
+- **Marketplace Verification Gate:** Enforces verification badges so only admin-vetted contractors are dispatched.
 
 ## ❓ Why We Created This Repo
-Operations and marketplace fulfillment have distinct workflows, security parameters, and data-density needs compared to customer portals:
-- **Admin Console:** Requires data-dense tables, platform-wide aggregate counts, contractor verification queues, and manual reassignment controls[cite: 1].
-- **Service Provider Hub:** Gives contractors a focused interface to view assigned jobs, check issue locations/notes, and submit completion reports with after-photos[cite: 1].
-- **Security Boundaries:** Segregates administrative tooling into its own web surface to prevent accidental leakage of internal capabilities into consumer-facing bundles[cite: 1].
+Administrative and contractor workflows have unique security requirements, high-density data tables, and distinct user authorization flows. Isolating operations into its own web application ensures that sensitive back-office management interfaces and internal controls are completely separated from customer-facing owner accounts.
 
-## 📂 File Structure
+## 🛠 Tech Stack
+- **Framework:** Next.js 14 (App Router) + React 18
+- **Language:** TypeScript (Strict Mode)
+- **Styling:** Tailwind CSS + shadcn/ui
+- **Data Tables & Charts:** TanStack Table, Recharts
+- **Data Fetching:** TanStack Query v5
+- **Real-Time Client:** Socket.IO Client
+
+## 📁 File Structure
 ```text
 groundpulse-web-ops/
 ├── app/
 │   ├── (admin)/
-│   │   ├── dashboard/page.tsx         # Live count cards & platform metrics
-│   │   ├── verification/page.tsx      # Inspector & provider vetting queue
-│   │   └── reassign/page.tsx          # Manual reassignments console
+│   │   ├── dashboard/page.tsx
+│   │   ├── reassign/page.tsx
+│   │   └── verification/page.tsx
 │   ├── (provider)/
-│   │   ├── jobs/page.tsx              # Active and historical assigned repairs
-│   │   └── job/[id]/page.tsx          # Repair scope, location & directions
-│   ├── layout.tsx                     # Admin/Ops layout shell
-│   └── middleware.ts                  # Enforces ADMIN and PROVIDER access tokens
+│   │   └── jobs/page.tsx
+│   ├── layout.tsx
+│   └── middleware.ts
 ├── components/
+│   ├── ui/
 │   ├── admin/
-│   │   ├── LiveCountCard.tsx          # Aggregated metric display card
-│   │   └── DrillDownTable.tsx         # Cross-entity searchable data grid
-│   ├── provider/
-│   │   ├── RepairActionCard.tsx       # Accept / decline repair assignment
-│   │   └── MarkCompleteDialog.tsx     # Confirmation notes & after-photo uploader
-│   └── ui/                            # Shared Radix/shadcn UI primitives
+│   │   ├── LiveCountCard.tsx
+│   │   └── ReassignmentDialog.tsx
+│   └── provider/
+│       ├── JobListItem.tsx
+│       └── MarkCompleteDialog.tsx
 ├── hooks/
-│   ├── useAdminMetrics.ts             # TanStack Query hook for dashboard metrics
-│   └── useProviderJobs.ts             # TanStack Query hook for repair jobs
+│   ├── useAdminDashboard.ts
+│   └── useProviderJobs.ts
 ├── lib/
-│   ├── apiClient.ts                   # Typed API client targeting groundpulse-api
-│   └── socket.ts                      # WebSocket client for real-time status changes
+│   ├── apiClient.ts
+│   └── socket.ts
 ├── package.json
-├── tailwind.config.ts
-├── tsconfig.json
 └── README.md
 💻 Commands
 Bash
-# 1. Install dependencies
+# Install dependencies
 npm install
 
-# 2. Configure environment variables
-cp .env.example .env.local
+# Run operations portal locally
+npm run dev
 
-# 3. Start development server (runs on port 3002 to avoid collision)
-npm run dev -- -p 3002
-
-# 4. Run component tests
-npm test
-
-# 5. Build for production
+# Build for production
 npm run build
+
+# Run unit tests
+npm test
 🔑 Required Environment Variables
 Code snippet
 NEXT_PUBLIC_API_URL="http://localhost:3001"
