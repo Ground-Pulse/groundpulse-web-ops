@@ -1,4 +1,4 @@
-### 4. `groundpulse-web-ops` README.md
+### 4. `groundpulse-web-ops`
 
 ```markdown
 # GroundPulse Operations & Marketplace Portal (`groundpulse-web-ops`)
