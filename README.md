@@ -9,12 +9,17 @@ Internal operations and contractor portal containing the **Admin Oversight Conso
 
 ## 📌 Work of This Repo
 This repository houses operational management and repair fulfillment workflows:
-- **Admin Console (`/admin/dashboard`, `/admin/reassign`):** Platform-wide live metrics (active properties, pending inspections, open issues, in-progress repairs), cross-entity drill-down tables, manual reassignments, and inspector/service-provider verification queues.
-- **Service Provider Portal (`/provider/jobs`):** Locality-based assigned jobs, repair instructions, accept/decline actions, and the "Mark Complete" flow requiring notes and after-photos.
+- **Admin Console (`/admin/dashboard`, `/admin/reassign`):** Platform-wide live metrics 
+(active properties, pending inspections, open issues, in-progress repairs), cross-entity drill-down tables, 
+manual reassignments, and inspector/service-provider verification queues.
+- **Service Provider Portal (`/provider/jobs`):** Locality-based assigned jobs, repair instructions, 
+accept/decline actions, and the "Mark Complete" flow requiring notes and after-photos.
 - **Marketplace Verification Gate:** Enforces verification badges so only admin-vetted contractors are dispatched.
 
 ## ❓ Why We Created This Repo
-Administrative and contractor workflows have unique security requirements, high-density data tables, and distinct user authorization flows. Isolating operations into its own web application ensures that sensitive back-office management interfaces and internal controls are completely separated from customer-facing owner accounts.
+Administrative and contractor workflows have unique security requirements, high-density 
+data tables, and distinct user authorization flows. Isolating operations into its own web application 
+ensures that sensitive back-office management interfaces and internal controls are completely separated from customer-facing owner accounts.
 
 ## 🛠 Tech Stack
 - **Framework:** Next.js 14 (App Router) + React 18
